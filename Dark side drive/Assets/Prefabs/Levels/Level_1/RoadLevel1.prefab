@@ -789,7 +789,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7042240618959189404}
   m_Layer: 0
-  m_Name: Road_Level_1
+  m_Name: RoadLevel1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -813,6 +813,7 @@ Transform:
   - {fileID: 7727592398402777868}
   - {fileID: 3121077631113030896}
   - {fileID: 5233398420974801453}
+  - {fileID: 5514632166926214813}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1300,6 +1301,63 @@ TerrainCollider:
   m_Enabled: 1
   m_TerrainData: {fileID: 15600000, guid: 6231319645725ce4895916037ba0c655, type: 2}
   m_EnableTreeColliders: 1
+--- !u!1 &8771650958330177147
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5514632166926214813}
+  - component: {fileID: 3918261436484062012}
+  - component: {fileID: 1201189032277221225}
+  m_Layer: 0
+  m_Name: Finish
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5514632166926214813
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8771650958330177147}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.8795738, y: 0.741, z: 472.15488}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7042240618959189404}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3918261436484062012
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8771650958330177147}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.8423333, y: 0.1466766, z: 2.6427307}
+  m_Center: {x: 0.13655257, y: -0.4266617, z: 0.82136536}
+--- !u!114 &1201189032277221225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8771650958330177147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9bab0e0bea44854290bb3ec1d17b465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &11285949636446383
 PrefabInstance:
   m_ObjectHideFlags: 0

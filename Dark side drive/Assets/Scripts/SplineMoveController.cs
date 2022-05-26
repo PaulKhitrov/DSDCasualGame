@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using PathCreation;
-using System;
 using UnityEngine.EventSystems;
 
 public class SplineMoveController : MonoBehaviour, IPauseHandler
@@ -9,43 +8,49 @@ public class SplineMoveController : MonoBehaviour, IPauseHandler
     [SerializeField] private List<PathCreator> splines = new List<PathCreator>();
     [SerializeField] private float moveSpeed;
     private LinkedList<PathCreator> _splinesList;
-    private float _moveDistance;
+    private float _moveDistance = 0.0f;
 
     public PathCreator CurrentSpline { get; private set; }
-    public float MoveSpeed { get => moveSpeed; }
-    private bool IsPaused => ProjectContext.Instance.PauseManager.IsPaused;
 
     private void Awake()
     {
+        _splinesList = new LinkedList<PathCreator>(splines);
+        SetStartSettngs();
         ProjectContext.Instance.PauseManager.Register(this);
     }
 
-    private void Start()
+    private void OnDestroy()
     {
-        _splinesList = new LinkedList<PathCreator>(splines);
-        CurrentSpline = _splinesList.First.Next.Value;
+        ProjectContext.Instance.PauseManager.UnRegister(this);
     }
 
     private void Update()
     {
-        if (IsPaused)
-            return;
-
         Move();
+
+        ////////////////////////планирую это отсюда вынести, в будущем
         TouchInput();
 
-        if (Input.GetKeyUp(KeyCode.A))
+        if (Input.GetKeyUp(KeyCode.LeftArrow))
         {
             StrafeLeft();
         }
 
-        if (Input.GetKeyUp(KeyCode.D))
+        if (Input.GetKeyUp(KeyCode.RightArrow))
         {
             StrafeRight();
         }
+        ///////////////////////
     }
 
-    public void Move()
+    public void SetStartSettngs()
+    {
+        _moveDistance = 0.0f;
+        CurrentSpline = _splinesList.First.Next.Value;
+        enabled = false;
+    }
+
+    private void Move()
     {
         _moveDistance += moveSpeed * Time.deltaTime;
         transform.position = CurrentSpline.path.GetPointAtDistance(_moveDistance);
@@ -87,6 +92,6 @@ public class SplineMoveController : MonoBehaviour, IPauseHandler
 
     public void SetPause(bool isPaused)
     {
-        
+        enabled = !isPaused;
     }
 }

@@ -1,10 +1,14 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(MeshCollider))]
+[RequireComponent(typeof(Rigidbody)),
+    RequireComponent(typeof(MeshCollider))]
 public class Car : MonoBehaviour
 {
-    private int _heals = 1;
+    public event Action IsCarBumped;
+    public event Action IsFinish;
+
+    private int _heals = 2;
     public int Heals { get => _heals; }
 
     private void Start()
@@ -13,16 +17,19 @@ public class Car : MonoBehaviour
         GetComponent<MeshCollider>().convex = true;
     }
 
-    public void GetHit()
+    public void Bump()
     {
-        if (_heals <= 0)
-        {
-            Debug.Log("Car is crashed!");
-            return;
-        }
-        else
-        {
-            _heals -= 1;
-        }
+        _heals -= 1;
+        IsCarBumped?.Invoke();
+    }
+
+    public void RestoreHeals()
+    {
+        _heals = 2;
+    }
+
+    public void Finish()
+    {
+        IsFinish?.Invoke();
     }
 }

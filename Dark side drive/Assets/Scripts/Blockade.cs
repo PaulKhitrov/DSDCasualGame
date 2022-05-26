@@ -6,7 +6,7 @@ public class Blockade : MonoBehaviour
     {
         if (other.TryGetComponent(out Car car))
         {
-            car.GetHit();
+            car.Bump();
         }
         else
         {

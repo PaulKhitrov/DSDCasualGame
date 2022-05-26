@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class ProjectContext : Singleton<ProjectContext>
 {
     public PauseManager PauseManager { get; private set; }
@@ -9,5 +5,15 @@ public class ProjectContext : Singleton<ProjectContext>
     private void Awake()
     {
         PauseManager = new PauseManager();
+    }
+
+    private void OnApplicationFocus(bool focus)
+    {
+        PauseManager.SetPause(!focus);
+    }
+
+    private void OnApplicationPause(bool pause)
+    {
+        PauseManager.SetPause(!pause);
     }
 }

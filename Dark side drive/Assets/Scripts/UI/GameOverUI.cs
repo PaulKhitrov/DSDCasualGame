@@ -1,16 +1,43 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameOverUI : MonoBehaviour
 {
-    public void OnClickRestart()
-    {
+    [SerializeField] private Button restartButton;
+    [SerializeField] private Button quitButton;
 
+    public event Action IsQuitClicked;
+    public event Action IsRestartClicked;
+
+    private void Awake()
+    {
+        restartButton.onClick.AddListener(OnClickRestartButton);
+        quitButton.onClick.AddListener(OnClickQuitButton);
     }
 
-    public void OnClickExit()
+    private void Start()
     {
+        Hide();
+    }
 
+    public void Show()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+    }
+
+    private void OnClickQuitButton()
+    {
+        IsQuitClicked?.Invoke();
+    }
+
+    private void OnClickRestartButton()
+    {
+        IsRestartClicked?.Invoke();
     }
 }
