@@ -16,11 +16,6 @@ public class GameOverUI : MonoBehaviour
         quitButton.onClick.AddListener(OnClickQuitButton);
     }
 
-    private void Start()
-    {
-        Hide();
-    }
-
     public void Show()
     {
         gameObject.SetActive(true);

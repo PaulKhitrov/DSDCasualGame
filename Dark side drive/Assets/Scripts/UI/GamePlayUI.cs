@@ -13,11 +13,6 @@ public class GamePlayUI : MonoBehaviour
         pauseButton.onClick.AddListener(OnPause);
     }
 
-    private void Start()
-    {
-        Hide();
-    }
-
     public void Show()
     {
         gameObject.SetActive(true);

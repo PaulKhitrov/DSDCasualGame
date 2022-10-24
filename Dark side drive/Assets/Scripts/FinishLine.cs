@@ -1,14 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class LevelComplete : MonoBehaviour
+public class FinishLine : MonoBehaviour
 {
+    public event Action IsCrossFinishLine;
     private void OnTriggerExit(Collider other)
     {
         if (other.TryGetComponent(out Car car))
         {
-            car.Finish();
+            IsCrossFinishLine?.Invoke();
         }
         else
         {

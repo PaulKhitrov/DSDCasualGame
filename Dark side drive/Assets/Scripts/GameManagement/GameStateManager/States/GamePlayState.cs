@@ -1,27 +1,47 @@
-using UnityEngine;
-
 public class GamePlayState : BaseGameState
 {
-    private GamePlayUI _gamePlayUI = Object.FindObjectOfType<GamePlayUI>();
+    private GamePlayUI _gamePlayUI;
+    private FinishLine _finishLine;
+    private SplineMoveController _splineMoveController;
+    private PlayerTouchInput _playerTouchInput;
 
-    public GamePlayState(Car car, IGameStateSwitcher gameStateSwitcher) : base(car, gameStateSwitcher)
+    public GamePlayState(IGameStateSwitcher gameStateSwitcher, Car car, FinishLine finishLine, GamePlayUI gamePlayUI) : base(gameStateSwitcher, car)
     {
-
+        _gamePlayUI = gamePlayUI;
+        _finishLine = finishLine;
+        _playerTouchInput = new PlayerTouchInput();
     }
 
     public override void StartGameState()
     {
-        _car.IsCarBumped += CarBump;
-        _car.IsFinish += LevelComplete;
-        _gamePlayUI.IsPauseClicked += OnPause;
         _gamePlayUI.Show();
+        _splineMoveController = _car.GetComponent<SplineMoveController>();
+        _playerTouchInput.Enable();
+        _car.IsCarBumped += CarBump;
+        _gamePlayUI.IsPauseClicked += OnPause;
+        _finishLine.IsCrossFinishLine += OnFinished;
+        _playerTouchInput.ToLeft += StrafeLeft;
+        _playerTouchInput.ToRight += StrafeRight;
     }
 
     public override void StopGameState()
     {
         _car.IsCarBumped -= CarBump;
-        _car.IsFinish -= LevelComplete;
         _gamePlayUI.IsPauseClicked -= OnPause;
+        _finishLine.IsCrossFinishLine -= OnFinished;
+        _playerTouchInput.ToLeft -= StrafeLeft;
+        _playerTouchInput.ToRight -= StrafeRight;
+        _playerTouchInput.Disable();
+    }
+
+    private void StrafeRight()
+    {
+        _splineMoveController.StrafeRight();
+    }
+
+    private void StrafeLeft()
+    {
+        _splineMoveController.StrafeLeft();
     }
 
     private void OnPause()
@@ -39,8 +59,9 @@ public class GamePlayState : BaseGameState
         }
     }
 
-    private void LevelComplete()
+    private void OnFinished()
     {
-        Debug.Log("LEVEL COMPLETE!"); //реализовать еще одно состояние или просто выплюпнуть канвасину с кнопками? хм, вопрос.....
+        _gamePlayUI.Hide();
+        _gameStateSwitcher.SwitchState<LevelCompleteState>();
     }
 }

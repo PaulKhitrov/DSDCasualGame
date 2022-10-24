@@ -3,10 +3,10 @@ public abstract class BaseGameState
     protected readonly Car _car;
     protected readonly IGameStateSwitcher _gameStateSwitcher;
 
-    protected BaseGameState(Car car, IGameStateSwitcher gamePlayStateSwitcher)
+    protected BaseGameState(IGameStateSwitcher gamePlayStateSwitcher, Car car)
     {
-        _car = car;
         _gameStateSwitcher = gamePlayStateSwitcher;
+        _car = car;
     }
 
     public abstract void StartGameState();

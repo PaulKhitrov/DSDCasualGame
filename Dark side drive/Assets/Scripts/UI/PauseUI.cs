@@ -19,11 +19,6 @@ public class PauseUI : MonoBehaviour
         quitButton.onClick.AddListener(QuitClicked);
     }
 
-    private void Start()
-    {
-        Hide();
-    }
-
     public void Show()
     {
         gameObject.SetActive(true);

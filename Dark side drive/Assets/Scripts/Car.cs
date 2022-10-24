@@ -6,7 +6,6 @@ using UnityEngine;
 public class Car : MonoBehaviour
 {
     public event Action IsCarBumped;
-    public event Action IsFinish;
 
     private int _heals = 2;
     public int Heals { get => _heals; }
@@ -26,10 +25,5 @@ public class Car : MonoBehaviour
     public void RestoreHeals()
     {
         _heals = 2;
-    }
-
-    public void Finish()
-    {
-        IsFinish?.Invoke();
     }
 }

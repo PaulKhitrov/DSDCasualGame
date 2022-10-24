@@ -1,29 +1,23 @@
-using UnityEngine;
-
 public class PreGameState : BaseGameState
 {
-    public PreGameState(Car car, IGameStateSwitcher gameStateSwitcher) : base(car, gameStateSwitcher)
-    {
+    private SplineMoveController _splineMoveController;
 
+    public PreGameState(IGameStateSwitcher gameStateSwitcher, Car car) : base(gameStateSwitcher, car)
+    {
+        
     }
 
     public override void StartGameState()
     {
-        if (_car.TryGetComponent(out SplineMoveController splineMoveController))
-        {
-            splineMoveController.SetStartSettngs();
-            splineMoveController.enabled = true;
-            _car.RestoreHeals();
-            _gameStateSwitcher.SwitchState<GamePlayState>();
-        }
-        else
-        {
-            Debug.LogError("SplineMoveController is not attached!");
-        }
+        _splineMoveController = _car.GetComponent<SplineMoveController>();
+        _splineMoveController.SetStartSettngs();
+        _splineMoveController.enabled = true;
+        _car.RestoreHeals();
+        _gameStateSwitcher.SwitchState<GamePlayState>();
     }
 
     public override void StopGameState()
     {
-        
+
     }
 }

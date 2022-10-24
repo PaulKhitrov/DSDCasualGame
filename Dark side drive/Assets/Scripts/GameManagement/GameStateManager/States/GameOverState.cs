@@ -1,36 +1,35 @@
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameOverState : BaseGameState
 {
-    private GameOverUI _gameOverUI = Object.FindObjectOfType<GameOverUI>();
+    private GameOverUI _gameOverUI;
 
-    public GameOverState(Car car, IGameStateSwitcher gameStateSwitcher) : base(car, gameStateSwitcher)
+    public GameOverState(IGameStateSwitcher gameStateSwitcher, Car car, GameOverUI gameOverUI) : base(gameStateSwitcher, car)
     {
-
+        _gameOverUI = gameOverUI;
     }
 
     public override void StartGameState()
     {
-        _gameOverUI.IsRestartClicked += RestartClick;
-        _gameOverUI.IsQuitClicked += QuitClick;
+        _gameOverUI.IsRestartClicked += OnRestart;
+        _gameOverUI.IsQuitClicked += OnQuit;
         _gameOverUI.Show();
         ProjectContext.Instance.PauseManager.SetPause(true);
     }
 
     public override void StopGameState()
     {
-        _gameOverUI.IsRestartClicked -= RestartClick;
-        _gameOverUI.IsQuitClicked -= QuitClick;
+        _gameOverUI.IsRestartClicked -= OnRestart;
+        _gameOverUI.IsQuitClicked -= OnQuit;
         _gameOverUI.Hide();
     }
 
-    private void RestartClick()
+    private void OnRestart()
     {
         _gameStateSwitcher.SwitchState<PreGameState>();
     }
 
-    private void QuitClick()
+    private void OnQuit()
     {
         SceneManager.LoadSceneAsync(0);
     }

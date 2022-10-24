@@ -3,13 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class PauseGameState : BaseGameState
 {
-    private PauseUI _pauseUI = Object.FindObjectOfType<PauseUI>();
-
+    private PauseUI _pauseUI;
     private PauseManager PauseManager => ProjectContext.Instance.PauseManager;
 
-    public PauseGameState(Car car, IGameStateSwitcher gameStateSwitcher) : base(car, gameStateSwitcher)
+    public PauseGameState(IGameStateSwitcher gameStateSwitcher, Car car, PauseUI pauseUI) : base(gameStateSwitcher, car)
     {
-
+        _pauseUI = pauseUI;
     }
 
     public override void StartGameState()

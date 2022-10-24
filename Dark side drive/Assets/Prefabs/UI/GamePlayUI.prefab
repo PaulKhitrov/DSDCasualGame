@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 1508783625285445201}
   - component: {fileID: 8188836809668645404}
   m_Layer: 5
-  m_Name: UIGameHud
+  m_Name: GamePlayUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
